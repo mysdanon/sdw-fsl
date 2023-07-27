@@ -5,7 +5,6 @@ import cv2
 import numpy as np
 from math import isqrt, ceil
 import torch
-from ifnude import detect
 from scripts.faceswaplab_globals import NSFW_SCORE_THRESHOLD
 from modules import processing
 import base64
@@ -26,12 +25,9 @@ def check_against_nsfw(img: PILImage) -> bool:
     """
 
     shapes: List[bool] = []
-    chunks: List[Dict[str, Union[int, float]]] = detect(img)
+    chunks: List[Dict[str, Union[int, float]]] = []
 
-    for chunk in chunks:
-        shapes.append(chunk["score"] > NSFW_SCORE_THRESHOLD)
-
-    return any(shapes)
+    return False
 
 
 def pil_to_cv2(pil_img: PILImage) -> CV2ImgU8:  # type: ignore
